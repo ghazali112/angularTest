@@ -1,0 +1,59 @@
+
+<p-toast></p-toast>
+
+<div class=" flex items-center justify-center  overflow-hidden">
+  <div class="flex flex-col items-center justify-center">
+    <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
+      <div class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20" style="border-radius: 53px">
+        <div class="text-center mb-8">
+          <span class="text-muted-color font-medium">Create Blog Post</span>
+        </div>
+
+        <form [formGroup]="blogForm" (ngSubmit)="onSubmit()" class="w-full md:w-[30rem]">
+          <!-- Author (readonly) -->
+          <label for="author" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Author</label>
+          <input pInputText id="author" type="text" class="w-full mb-8" formControlName="author" readonly />
+
+          <!-- Title -->
+          <label for="title" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Title</label>
+          <input
+            pInputText
+            id="title"
+            type="text"
+            placeholder="Title of Blog"
+            class="w-full mb-1"
+            formControlName="title"
+            [ngClass]="{ 'p-invalid': isInvalid('title') }"
+          />
+          <small *ngIf="isInvalid('title')" class="text-red-500 block mb-4">
+            <ng-container *ngIf="blogForm.get('title')?.hasError('required')">Title is required.</ng-container>
+            <ng-container *ngIf="blogForm.get('title')?.hasError('minlength')">Title must be at least 5 characters.</ng-container>
+            <ng-container *ngIf="blogForm.get('title')?.hasError('maxlength')">Title must not exceed 100 characters.</ng-container>
+          </small>
+
+          <!-- Content -->
+          <label for="content" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Content</label>
+          <textarea
+            pInputText
+            id="content"
+            rows="6"
+            placeholder="Content of blog"
+            class="w-full mb-1"
+            formControlName="content"
+            [ngClass]="{ 'p-invalid': isInvalid('content') }"
+          ></textarea>
+          <small *ngIf="isInvalid('content')" class="text-red-500 block mb-4">
+            <ng-container *ngIf="blogForm.get('content')?.hasError('required')">Content is required.</ng-container>
+            <ng-container *ngIf="blogForm.get('content')?.hasError('minlength')">Content must be at least 10 characters.</ng-container>
+          </small>
+
+          <!-- Error Message -->
+          <div *ngIf="errorMessage" class="text-red-500 text-center my-4">{{ errorMessage }}</div>
+
+          <!-- Submit Button -->
+          <p-button label="Submit" type="submit" [disabled]="blogForm.invalid" styleClass="w-full mt-2"></p-button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

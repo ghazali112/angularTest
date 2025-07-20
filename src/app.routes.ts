@@ -4,20 +4,24 @@ import { Dashboard } from './app/pages/dashboard/dashboard';
 import { Documentation } from './app/pages/documentation/documentation';
 import { Landing } from './app/pages/landing/landing';
 import { Notfound } from './app/pages/notfound/notfound';
+import { Login } from './app/pages/auth/login/login';
+import { AuthGuard } from './app/guards/auth.guard'; // Adjust path if needed
 
 export const appRoutes: Routes = [
     {
         path: '',
-        component: AppLayout,
+        component: Login,
+        canActivate: [AuthGuard],
         children: [
             { path: '', component: Dashboard },
-            { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
+            { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes'), canActivate: [AuthGuard] },
             { path: 'documentation', component: Documentation },
-            { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }
+            { path: 'pages', loadChildren: () => import('./app/pages/pages.routes'), canActivate: [AuthGuard] }
         ]
     },
     { path: 'landing', component: Landing },
     { path: 'notfound', component: Notfound },
     { path: 'auth', loadChildren: () => import('./app/pages/auth/auth.routes') },
+    { path: 'blog', loadChildren: () => import('./app/pages/blog/blog.routes'), canActivate: [AuthGuard] },
     { path: '**', redirectTo: '/notfound' }
 ];

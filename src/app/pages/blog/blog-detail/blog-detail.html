@@ -1,0 +1,25 @@
+<app-topbar></app-topbar>
+<div class="p-grid p-justify-center  mb-8 spacing-top">
+  <div class="p-col-12 p-md-8 mt-8">
+
+    <!-- Back Button -->
+    <button
+      pButton
+      type="button"
+      icon="pi pi-arrow-left"
+      label="Back to List"
+      class="p-button-text p-mb-3"
+      (click)="goBack()">
+    </button>
+
+    <!-- Blog Card -->
+    <p-card *ngIf="blog" header="{{ blog.title }}" class="p-shadow-4">
+      <div class="p-text-secondary p-mb-2">
+        <i class="pi pi-user"></i> {{ blog.author }} &nbsp; | &nbsp;
+        <i class="pi pi-calendar"></i> {{ blog.createdAt | date }}
+      </div>
+      <p style="line-height: 1.6;">{{ blog.content }}</p>
+    </p-card>
+
+  </div>
+</div>

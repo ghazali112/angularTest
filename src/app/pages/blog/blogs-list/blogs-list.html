@@ -1,0 +1,42 @@
+<app-topbar></app-topbar>
+
+<div class="card mt-4">
+  <div class="flex justify-content-end mb-3 mt-8">
+    <button
+      pButton
+      type="button"
+      label="Create Blog"
+      icon="pi pi-plus"
+      class="p-button-primary"
+      (click)="goToCreatePost()">
+    </button>
+
+    <p-dialog
+      [(visible)]="displayModal"
+      [modal]="true"
+      [closable]="true"
+      [dismissableMask]="true"
+      [style]="{ width: '60vw' }"
+      [breakpoints]="{ '960px': '90vw' }"
+      [styleClass]="'p-dialog-custom'">
+      <app-create-blog></app-create-blog>
+    </p-dialog>
+  </div>
+
+  <p *ngIf="posts.length==0">No blog uploaded yet</p>
+  <ag-grid-angular *ngIf="posts.length>0"
+    class="ag-theme-alpine ag-grid-height"
+    [rowData]="posts"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    (rowClicked)="onRowClicked($event)"
+    [pagination]="false">
+  </ag-grid-angular>
+
+  <p-paginator  *ngIf="posts.length>0"
+    [rows]="pageSize"
+    [totalRecords]="totalPosts"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    (onPageChange)="onPageChange($event)">
+  </p-paginator>
+</div>

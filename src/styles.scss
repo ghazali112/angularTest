@@ -3,3 +3,11 @@
 @use './assets/layout/layout.scss';
 @use 'primeicons/primeicons.css';
 @use './assets/demo/demo.scss';
+
+.spacing-top {
+  margin-top: 5rem; /* or any value you prefer */
+}
+
+.ag-grid-height{
+  height: 270px;
+}
